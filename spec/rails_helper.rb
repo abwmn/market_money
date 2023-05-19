@@ -6,6 +6,10 @@ require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'shoulda/matchers'
+require 'webmock/rspec'
+
+require 'vcr'
+WebMock.disable_net_connect!(allow_localhost: true)
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -65,4 +69,22 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+
+  config.before(:suite) do
+    VCR.turn_on!
+    WebMock.enable!
+  end
+
+  config.after(:suite) do
+    VCR.turn_off!
+    WebMock.disable!
+  end
+end
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  config.hook_into :webmock
+  config.default_cassette_options = {
+    match_requests_on: [:method, VCR.request_matchers.uri_without_params(:lat, :lon)]
+  }
 end

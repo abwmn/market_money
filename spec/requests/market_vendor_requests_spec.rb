@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'POST /api/v0/market_vendors', type: :request do
+RSpec.describe 'Market Vendor requests', type: :request do
   let(:market) { create(:market) }
   let(:vendor) { create(:vendor) }
 

@@ -23,7 +23,6 @@ class Api::V0::MarketsController < ApplicationController
   def search
     if valid_parameters?
       @markets = Market.where(search_params)
-      # require 'pry'; binding.pry
       render json: { data: @markets }, status: :ok
     else
       render json: { errors: [{ detail: 'Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint.' }] }, status: :unprocessable_entity

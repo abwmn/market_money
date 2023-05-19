@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Vendors API", type: :request do
+RSpec.describe "Vendor requests", type: :request do
   describe 'Get One Vendor' do
     it 'returns the vendor when a valid vendor id is provided' do
       vendor = create(:vendor)
@@ -117,7 +117,7 @@ RSpec.describe "Vendors API", type: :request do
     end
   end
 
-  describe 'DELETE /api/v0/vendors/:id' do
+  describe 'Delete a vendor' do
     let!(:vendor) { create(:vendor) }
   
     it 'deletes the vendor' do

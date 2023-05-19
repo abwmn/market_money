@@ -130,9 +130,8 @@ RSpec.describe "Vendors API", type: :request do
     it 'returns status code 404 when vendor does not exist' do
       delete "/api/v0/vendors/123123123123", headers: headers
       expect(response).to have_http_status(404)
-      # require 'pry'; binding.pry
       json = JSON.parse(response.body)
-      expect(json['errors'].first['message']).to eq("Couldn't find Vendor with 'id'=123123123123")
+      expect(json['errors'].first['detail']).to eq("Couldn't find Vendor with 'id'=123123123123")
     end
   end
 end

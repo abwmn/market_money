@@ -1,5 +1,5 @@
 class TomtomService
-  def self.nearest_atms(lat, lon)
+  def self.nearest_atm(lat, lon)
     uri = URI("https://api.tomtom.com/search/2/categorySearch/ATM.json?lat=#{lat}&lon=#{lon}&key=#{ENV['TOMTOM_API_KEY']}")
     response = Net::HTTP.get(uri)
     atm_data = JSON.parse(response)

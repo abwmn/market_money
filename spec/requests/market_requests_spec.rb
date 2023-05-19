@@ -40,7 +40,6 @@ RSpec.describe 'Markets API', type: :request do
       expect(market[:data][:attributes]).to have_key(:zip)
       expect(market[:data][:attributes]).to have_key(:lat)
       expect(market[:data][:attributes]).to have_key(:lon)
-      # expect(market[:data][:attributes]).to have_key(:vendor_count)
     end
   
     it 'returns a 404 and error message when market does not exist' do
@@ -91,37 +90,38 @@ RSpec.describe 'Markets API', type: :request do
 
   describe 'GET /api/v0/markets/search' do
     let!(:market) { create(:market, name: 'Nob Hill Growers Market', city: 'Albuquerque', state: 'New Mexico') }
-
+  
     context 'with valid parameters' do
       it 'returns the matching markets' do
         get '/api/v0/markets/search', params: { city: 'Albuquerque', state: 'New Mexico', name: 'Nob Hill Growers Market' }
         json = JSON.parse(response.body)
-
+  
         expect(response).to have_http_status(200)
-
-        expect(json.first['name']).to eq('Nob Hill Growers Market')
+  
+        expect(json['data'].first['name']).to eq('Nob Hill Growers Market')
       end
     end
-
+  
     context 'with invalid parameters' do
       it 'returns an error' do
         get '/api/v0/markets/search', params: { city: 'Albuquerque' }
         json = JSON.parse(response.body)
-
+  
         expect(response).to have_http_status(422)
-
+  
         expect(json['errors'].first['detail']).to eq('Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint.')
       end
     end
   end
   
-  describe 'GET /api/v0/markets/:id/nearest_atms' do
+  
+  describe 'GET /api/v0/markets/:id/nearest_atm' do
     let!(:market) { create(:market) }
 
     context 'when the market exists' do
       before do
-        VCR.use_cassette("nearest_atms") do
-          get "/api/v0/markets/#{market.id}/nearest_atms"
+        VCR.use_cassette("nearest_atm") do
+          get "/api/v0/markets/#{market.id}/nearest_atm"
         end
       end
 
@@ -139,7 +139,7 @@ RSpec.describe 'Markets API', type: :request do
     context 'when the market does not exist' do
       let(:market_id) { 123123123123 }
 
-      before { get "/api/v0/markets/#{market_id}/nearest_atms" }
+      before { get "/api/v0/markets/#{market_id}/nearest_atm" }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)

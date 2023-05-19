@@ -38,6 +38,7 @@ gem "bootsnap", require: false
 
 gem "faraday"
 gem "figaro"
+gem 'fast_jsonapi'
 
 group :test do
   gem "rspec-rails"
@@ -45,6 +46,7 @@ group :test do
   gem "launchy"
   gem "faker"
   gem 'factory_bot_rails'
+  gem 'shoulda-matchers'
 end
 
 group :development, :test do

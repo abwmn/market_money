@@ -100,6 +100,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
     globalid (1.1.0)
@@ -196,6 +198,8 @@ GEM
       rspec-support (~> 3.12)
     rspec-support (3.12.0)
     ruby2_keywords (0.0.5)
+    shoulda-matchers (5.3.0)
+      activesupport (>= 5.2.0)
     thor (1.2.2)
     timeout (0.3.2)
     tzinfo (2.0.6)
@@ -217,6 +221,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   faraday
+  fast_jsonapi
   figaro
   launchy
   pg (~> 1.1)
@@ -224,6 +229,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
   rspec-rails
+  shoulda-matchers
   tzinfo-data
 
 RUBY VERSION
